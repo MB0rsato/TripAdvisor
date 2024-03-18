@@ -21,14 +21,35 @@ USE `tripadvisor`;
 
 -- Dump della struttura di tabella tripadvisor.commenti
 CREATE TABLE IF NOT EXISTS `commenti` (
-  `Colonna 1` int(11) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `testo` varchar(200) DEFAULT NULL,
+  `stato` varchar(50) DEFAULT NULL,
+  `voto` int(11) DEFAULT NULL,
+  `autore` varchar(50) DEFAULT NULL,
+  `eliminato` varchar(50) DEFAULT NULL,
+  `idUscita` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_commenti_uscite` (`idUscita`),
+  CONSTRAINT `FK_commenti_uscite` FOREIGN KEY (`idUscita`) REFERENCES `uscite` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.commenti: ~0 rows (circa)
 
 -- Dump della struttura di tabella tripadvisor.uscite
 CREATE TABLE IF NOT EXISTS `uscite` (
-  `Colonna 1` int(11) DEFAULT NULL
+  `id` int(11) NOT NULL DEFAULT 0,
+  `data` date DEFAULT NULL,
+  `luogo` varchar(50) DEFAULT NULL,
+  `classi` varchar(50) DEFAULT NULL,
+  `durata` int(11) DEFAULT NULL,
+  `tipologia` varchar(50) DEFAULT NULL,
+  `prezzo` int(11) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `descrizione` varchar(200) DEFAULT NULL,
+  `idcommento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_uscite_commenti` (`idcommento`),
+  CONSTRAINT `FK_uscite_commenti` FOREIGN KEY (`idcommento`) REFERENCES `commenti` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.uscite: ~0 rows (circa)

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripAdvisor", "TripAdvisor\TripAdvisor.csproj", "{C587E844-BBEC-4C61-8BD2-5BA42558D5EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C587E844-BBEC-4C61-8BD2-5BA42558D5EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C587E844-BBEC-4C61-8BD2-5BA42558D5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C587E844-BBEC-4C61-8BD2-5BA42558D5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C587E844-BBEC-4C61-8BD2-5BA42558D5EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45597054-B7E0-4FCB-BFA7-D1A7890D6FCB}
+	EndGlobalSection
+EndGlobal

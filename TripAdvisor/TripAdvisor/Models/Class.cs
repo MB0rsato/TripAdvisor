@@ -2,8 +2,8 @@
 {
     public class Class
     {
-        public string ClassID { get; set; }
-        public string Specialization { get; set; }
+        public string classid { get; set; }
+        public string specialization { get; set; }
 
     }
 }

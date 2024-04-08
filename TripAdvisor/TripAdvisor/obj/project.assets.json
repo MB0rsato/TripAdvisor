@@ -1897,19 +1897,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Utente\\.nuget\\packages\\": {}
+    "C:\\Users\\Nicola\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\TripAdvisor.csproj",
+      "projectUniqueName": "C:\\Users\\Nicola\\Documents\\TripAdvisor\\TripAdvisor\\TripAdvisor\\TripAdvisor.csproj",
       "projectName": "TripAdvisor",
-      "projectPath": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\TripAdvisor.csproj",
-      "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\obj\\",
+      "projectPath": "C:\\Users\\Nicola\\Documents\\TripAdvisor\\TripAdvisor\\TripAdvisor\\TripAdvisor.csproj",
+      "packagesPath": "C:\\Users\\Nicola\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nicola\\Documents\\TripAdvisor\\TripAdvisor\\TripAdvisor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nicola\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1967,7 +1967,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

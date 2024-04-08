@@ -9,22 +9,6 @@
     <link rel="stylesheet" href="~/TripAdvisor.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="display-4 mt-5">BARSANTI TRIP-ADVISOR</h1>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 col-sm-10 col-12 mt-4 text-center">
-                <input type="text" class="form-control search-input" placeholder="Search...">
-            </div>
-        </div>
-        <button class="btn btn-top-right">LOGIN</button>
-        <a class="btn btn-primary" asp-controller="Home" asp-action="Login">Login</a>
-
-    </div>
-
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

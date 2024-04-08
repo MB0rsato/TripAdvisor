@@ -23,9 +23,9 @@ USE `tripadvisor`;
 -- Dump della struttura di tabella tripadvisor.classes
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
-  `Class` varchar(200) NOT NULL DEFAULT 'NoClass',
-  `Specialization` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`Class`)
+  `classid` varchar(200) NOT NULL DEFAULT 'NoClass',
+  `specialization` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.classes: ~0 rows (circa)
@@ -51,14 +51,12 @@ DELETE FROM `comments`;
 -- Dump della struttura di tabella tripadvisor.partecipations
 DROP TABLE IF EXISTS `partecipations`;
 CREATE TABLE IF NOT EXISTS `partecipations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idTrip` int(11) NOT NULL DEFAULT 0,
-  `class` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_partecipations_trips` (`idTrip`),
-  KEY `FK_partecipations_classes` (`class`),
-  CONSTRAINT `FK_partecipations_classes` FOREIGN KEY (`class`) REFERENCES `classes` (`Class`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_partecipations_trips` FOREIGN KEY (`idTrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `idtrip` int(11) NOT NULL DEFAULT 0,
+  `classid` varchar(200) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idtrip`,`classid`),
+  KEY `FK_partecipations_classes` (`classid`),
+  CONSTRAINT `FK_partecipations_classes` FOREIGN KEY (`classid`) REFERENCES `classes` (`classid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_partecipations_trips` FOREIGN KEY (`idtrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.partecipations: ~0 rows (circa)

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.classes: ~6 rows (circa)
+-- Dump dei dati della tabella tripadvisor.classes: ~5 rows (circa)
 DELETE FROM `classes`;
 INSERT INTO `classes` (`classid`, `specialization`) VALUES
 	('1AI', 'Informatica'),
@@ -41,19 +41,22 @@ INSERT INTO `classes` (`classid`, `specialization`) VALUES
 -- Dump della struttura di tabella tripadvisor.comments
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` varchar(200) DEFAULT NULL,
   `state` varchar(200) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
   `author` varchar(200) DEFAULT NULL,
-  `deleted` char(2) DEFAULT NULL,
+  `deleted` char(1) DEFAULT NULL,
   `idTrip` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_commenti_uscite` (`idTrip`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_comments_trips` (`idTrip`),
+  CONSTRAINT `FK_comments_trips` FOREIGN KEY (`idTrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.comments: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.comments: ~1 rows (circa)
 DELETE FROM `comments`;
+INSERT INTO `comments` (`id`, `text`, `state`, `rating`, `author`, `deleted`, `idTrip`) VALUES
+	(2, 'Bella gita', 'Approved', 4, 'Giovanni', 'N', 1);
 
 -- Dump della struttura di tabella tripadvisor.partecipations
 DROP TABLE IF EXISTS `partecipations`;
@@ -75,22 +78,22 @@ INSERT INTO `partecipations` (`idtrip`, `classid`) VALUES
 -- Dump della struttura di tabella tripadvisor.trips
 DROP TABLE IF EXISTS `trips`;
 CREATE TABLE IF NOT EXISTS `trips` (
-  `id` int(11) NOT NULL DEFAULT 0,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date DEFAULT NULL,
   `location` varchar(200) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
   `type` varchar(200) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `pictures` varchar(200) DEFAULT NULL,
+  `picture` varchar(200) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
-  `averageRating` int(11) DEFAULT NULL,
+  `averageRating` int(11) DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.trips: ~1 rows (circa)
+-- Dump dei dati della tabella tripadvisor.trips: ~0 rows (circa)
 DELETE FROM `trips`;
-INSERT INTO `trips` (`id`, `date`, `location`, `duration`, `type`, `price`, `pictures`, `description`, `averageRating`) VALUES
-	(0, '2024-04-12', 'Steelco', 5, 'UA', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 0);
+INSERT INTO `trips` (`id`, `date`, `location`, `duration`, `type`, `price`, `picture`, `description`, `averageRating`) VALUES
+	(1, '2024-04-12', 'Steelco', 5, 'Uscita aziendale', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

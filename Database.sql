@@ -28,8 +28,15 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.classes: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.classes: ~6 rows (circa)
 DELETE FROM `classes`;
+INSERT INTO `classes` (`classid`, `specialization`) VALUES
+	('1AI', 'Informatica'),
+	('2AE', 'Elettrotecnica'),
+	('3AI', 'Informatica'),
+	('3BI', 'Informatica'),
+	('4AMM', 'Meccanica'),
+	('5AAU', 'Automazione');
 
 -- Dump della struttura di tabella tripadvisor.comments
 DROP TABLE IF EXISTS `comments`;
@@ -59,8 +66,11 @@ CREATE TABLE IF NOT EXISTS `partecipations` (
   CONSTRAINT `FK_partecipations_trips` FOREIGN KEY (`idtrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.partecipations: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.partecipations: ~2 rows (circa)
 DELETE FROM `partecipations`;
+INSERT INTO `partecipations` (`idtrip`, `classid`) VALUES
+	(0, '3AI'),
+	(0, '3BI');
 
 -- Dump della struttura di tabella tripadvisor.trips
 DROP TABLE IF EXISTS `trips`;
@@ -68,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `trips` (
   `id` int(11) NOT NULL DEFAULT 0,
   `date` date DEFAULT NULL,
   `location` varchar(200) DEFAULT NULL,
-  `classes` varchar(200) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
   `type` varchar(200) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
@@ -78,8 +87,10 @@ CREATE TABLE IF NOT EXISTS `trips` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.trips: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.trips: ~1 rows (circa)
 DELETE FROM `trips`;
+INSERT INTO `trips` (`id`, `date`, `location`, `duration`, `type`, `price`, `pictures`, `description`, `averageRating`) VALUES
+	(0, '2024-04-12', 'Steelco', 5, 'UA', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

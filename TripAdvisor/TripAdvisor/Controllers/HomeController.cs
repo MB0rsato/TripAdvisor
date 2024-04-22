@@ -5,6 +5,7 @@ using System.Text.Json;
 using TripAdvisor.Filters;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Org.BouncyCastle.Tls;
 
 namespace TripAdvisor.Controllers
 {
@@ -19,7 +20,7 @@ namespace TripAdvisor.Controllers
             _logger = logger;
             _configuration = configuration;
             _session = contextAccesor.HttpContext.Session;
-            //dataManager = new DataManager(_configuration);
+            dataManager = new DataManager(_configuration);
             contextAccesor.HttpContext.Items["utente"] = _session.GetString("utente");
         }
 
@@ -79,6 +80,7 @@ namespace TripAdvisor.Controllers
             }
             if(userCredential != null)
             {
+                var s = client.User;
                 _session.SetString("utente", "admin");
                 return RedirectToAction("Index");
             }

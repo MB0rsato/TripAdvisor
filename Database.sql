@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.classes: ~5 rows (circa)
+-- Dump dei dati della tabella tripadvisor.classes: ~4 rows (circa)
 DELETE FROM `classes`;
 INSERT INTO `classes` (`classid`, `specialization`) VALUES
 	('1AI', 'Informatica'),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `FK_comments_trips` FOREIGN KEY (`idTrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.comments: ~1 rows (circa)
+-- Dump dei dati della tabella tripadvisor.comments: ~0 rows (circa)
 DELETE FROM `comments`;
 INSERT INTO `comments` (`id`, `text`, `state`, `rating`, `author`, `deleted`, `idTrip`) VALUES
 	(2, 'Bella gita', 'Approved', 4, 'Giovanni', 'N', 1);
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `partecipations` (
   CONSTRAINT `FK_partecipations_trips` FOREIGN KEY (`idtrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.partecipations: ~2 rows (circa)
+-- Dump dei dati della tabella tripadvisor.partecipations: ~1 rows (circa)
 DELETE FROM `partecipations`;
 INSERT INTO `partecipations` (`idtrip`, `classid`) VALUES
 	(0, '3AI'),
@@ -94,6 +94,18 @@ CREATE TABLE IF NOT EXISTS `trips` (
 DELETE FROM `trips`;
 INSERT INTO `trips` (`id`, `date`, `location`, `duration`, `type`, `price`, `picture`, `description`, `averageRating`) VALUES
 	(1, '2024-04-12', 'Steelco', 5, 'Uscita aziendale', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 0);
+
+-- Dump della struttura di tabella tripadvisor.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `uid` varchar(200) NOT NULL DEFAULT '',
+  `name` varchar(50) DEFAULT NULL,
+  `classid` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dump dei dati della tabella tripadvisor.users: ~0 rows (circa)
+DELETE FROM `users`;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

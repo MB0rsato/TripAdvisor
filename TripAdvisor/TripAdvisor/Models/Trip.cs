@@ -9,7 +9,7 @@
         public int duration { get; set; }
         public string type { get; set; }
         public int price { get; set; }
-        public string pictures { get; set; }
+        public string picture { get; set; }
         public string description { get; set; }
         public int averageRating { get; set; }
 

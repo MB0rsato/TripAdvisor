@@ -5,6 +5,7 @@ using System.Text.Json;
 using TripAdvisor.Filters;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Org.BouncyCastle.Tls;
 
 namespace TripAdvisor.Controllers
 {
@@ -19,7 +20,7 @@ namespace TripAdvisor.Controllers
             _logger = logger;
             _configuration = configuration;
             _session = contextAccesor.HttpContext.Session;
-            //dataManager = new DataManager(_configuration);
+            dataManager = new DataManager(_configuration);
             contextAccesor.HttpContext.Items["utente"] = _session.GetString("utente");
         }
 
@@ -44,7 +45,50 @@ namespace TripAdvisor.Controllers
             ViewData["esito"] = "Successo = " + response;
             return View("index");
         }
+        public IActionResult Register()
+        {
+            return View(new registrationUser());
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(registrationUser user)
+        {
+            var config = new FirebaseAuthConfig
+            {
+                ApiKey = "AIzaSyDnv6FN72wQU7c-Zhe32dzhYwuXII9COtk",
+                AuthDomain = "tripadvisor-96ea6.firebaseapp.com",
+                Providers = new FirebaseAuthProvider[]
+                {
+                    new GoogleProvider().AddScopes("email"),
+                    new EmailProvider()
+                }
+            };
+
+            var client = new FirebaseAuthClient(config);
+
+            string email = user.email;
+            string password = user.password;
+            try
+            {
+                if(email.Length > 0 && password.Length > 0) //Controlli vari su email e password
+                {
+                    UserCredential userCredential = await client.CreateUserWithEmailAndPasswordAsync(email, password);
+                    dataManager.InsertUser(new user {uid = userCredential.User.Uid, classid = user.classid, name = user.name});
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewData["errore"] = "Credenziali errate!";
+                    return View(new System.Net.NetworkCredential());
+                }  
+            }
+            catch (Exception ex)
+            {
+                ViewData["errore"] = "Credenziali errate!";
+                return View(new System.Net.NetworkCredential());
+            }
+            
+        }
         public IActionResult Login()
         {
             return View(new System.Net.NetworkCredential());
@@ -77,8 +121,9 @@ namespace TripAdvisor.Controllers
             {
 
             }
-            if(userCredential != null)
+            if (userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["mb"]) || userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["ns"]))
             {
+                var s = client.User;
                 _session.SetString("utente", "admin");
                 return RedirectToAction("Index");
             }

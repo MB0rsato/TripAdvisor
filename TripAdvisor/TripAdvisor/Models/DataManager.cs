@@ -45,10 +45,10 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
-        public bool InsertUser(registrationUser user)
+        public bool InsertUser(user user)
         {
             using var con = new MySqlConnection(s);
-            string query = @"Insert into user(uid,name,classid)
+            string query = @"Insert into users(uid,name,classid)
                             values(@uid,@name,@classid)";
             var param = new { uid = user.uid, name = user.name, classid = user.classid };
             bool esito;

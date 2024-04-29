@@ -10,36 +10,44 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10 col-12 mt-4 text-center">
-            <input type="text" class="form-control search-input" placeholder="Search...">
+            <input type="text" class="form-control search-input" placeholder="Cerca...">
         </div>
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-lg-10 col-md-12 col-sm-12 col-12 text-center">
-            <div class="custom-box">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="url_dell_immagine" class="img-fluid" alt="Immagine">
+            <div class="custom-box p-3">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <!-- Box con padding -->
+                    <div class="row align-items-center">
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <img src="images/Albero.jpg" class="img-fluid" alt="Immagine" style="max-height: 200px;">
                     </div>
-                    <div class="col-md-8">
-                        <div class="d-flex flex-column">
+                    <div class="col-md-8 col-sm-6">
+                        <div class="d-flex flex-column align-items-start">
                             <h2>Titolo dell'elemento</h2>
-                            <div class="d-flex">
-                                <p>
-                                    <svg>
-
-                                    </svg>
-                                </p>
-                                <p class="mr-2">$50 a persona</p>
-                                <p class="mr-2">15 Aprile 2024</p>
+                            <div class="info">
+                                <div class="rating">
+                                    <input type="radio" id="star5" name="rating" value="5" />
+                                    <label for="star5" title="5 stelle"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" />
+                                    <label for="star4" title="4 stelle"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for "star3" title="3 stelle"></label>
+                                    <input tipo="radio" id="star2" name="rating" value="2" />
+                                    <label for "star2" title="2 stelle"></label>
+                                    <input tipo="radio" id="star1" name="rating" value="1" />
+                                    <label for "star1" title="1 stella"></label>
+                                </div>
+                                <p>$50 a persona</p>
+                                <p>15 Aprile 2024</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                }
             </div>
         </div>
     </div>
     <a class="btn btn-top-right" asp-controller="Home" asp-action="Login">LOGIN</a>
 </div>
-
-
-

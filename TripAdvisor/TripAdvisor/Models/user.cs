@@ -1,6 +1,6 @@
 ﻿namespace TripAdvisor.Models
 {
-    public class user
+    public class User
     {
         public string uid { get; set; }
         public string name { get; set; }

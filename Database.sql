@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.classes: ~4 rows (circa)
+-- Dump dei dati della tabella tripadvisor.classes: ~6 rows (circa)
 DELETE FROM `classes`;
 INSERT INTO `classes` (`classid`, `specialization`) VALUES
 	('1AI', 'Informatica'),
@@ -101,11 +101,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `uid` varchar(200) NOT NULL DEFAULT '',
   `name` varchar(50) DEFAULT NULL,
   `classid` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
+  PRIMARY KEY (`uid`),
+  KEY `FK_users_classes` (`classid`),
+  CONSTRAINT `FK_users_classes` FOREIGN KEY (`classid`) REFERENCES `classes` (`classid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.users: ~0 rows (circa)
 DELETE FROM `users`;
+INSERT INTO `users` (`uid`, `name`, `classid`) VALUES
+	('wifjf1bdN7ftrTM5aOPc8EDzOhR2', 'Thomas Garbui', '3BI');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

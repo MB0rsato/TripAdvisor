@@ -21,6 +21,8 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<Class>("Select * from classes").ToList();
         }
+
+        /*
         public User GetUser(string uid)
         {
             using var con = new MySqlConnection(s);
@@ -28,6 +30,7 @@ namespace TripAdvisor.Models
                                     "Where uid = @uid",
                                     new {uid = uid});
         }
+        */
         public List<Comment> GetComments(Trip trip)
         {
             using var con = new MySqlConnection(s);

@@ -18,7 +18,7 @@
         <div class="col-lg-10 col-md-12 col-sm-12 col-12 text-center">
             @for (int i = 0; i < 10; i++)
             {
-                <div class="custom-box p-3 mb-3">
+                <div class="custom-box p-3 mb-3 toggle-expandable" data-expandable-id="@i">
                     <div class="row align-items-center">
                         <div class="col-md-4 col-sm-6 text-center">
                             <img src="images/Albero.jpg" class="img-fluid" alt="Immagine" style="max-height: 200px;">
@@ -45,11 +45,21 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Area espandibile per commenti -->
+                    <div class="comments-area d-none" id="expandable-@i">
+                        <h3>Commenti:</h3>
+                        <p>Questo è un commento.</p>
+                        <p>Un altro commento...</p>
+                    </div>
                 </div>
             }
         </div>
     </div>
     <a class="btn btn-top-right" asp-controller="Home" asp-action="Login">LOGIN</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="text-center mt-3">
+            <a class="btn btn-success" asp-controller="Home" asp-action="AddNewItem">Nuova uscita/gita</a>
+        </div>
+    }
 </div>
-
-

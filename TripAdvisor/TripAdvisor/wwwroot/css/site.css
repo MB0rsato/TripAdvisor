@@ -70,3 +70,34 @@
 .info > p {
     margin: 0 0.5em;
 }
+
+.custom-box {
+    transition: all 0.3s ease; /* Per effetto di espansione */
+}
+
+.comments-area {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+    .comments-area.d-none {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    .comments-area.d-block {
+        max-height: 200px; /* Altezze regolabili in base alla quantità di contenuto */
+        opacity: 1;
+        overflow: auto;
+    }
+
+@media (max-width: 768px) {
+    /* Stili responsive per dispositivi mobili */
+    .custom-box {
+        padding: 2rem;
+    }
+
+    .comments-area {
+        max-height: 150px; /* Regola l'altezza per dispositivi mobili */
+    }
+}

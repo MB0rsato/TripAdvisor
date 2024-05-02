@@ -4,20 +4,32 @@
 // Write your JavaScript code.
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const ratingStars = document.querySelectorAll('.rating input');
-    const publishButton = document.querySelector('#publishButton');
-    const ratingValueField = document.querySelector('#ratingValue');
+    const allRatings = document.querySelectorAll('.rating');
 
-    let selectedRating = null;
+    allRatings.forEach(rating => {
+        const ratingStars = rating.querySelectorAll('input[type="radio"]');
+    const allLabels = rating.querySelectorAll('label');
 
-        ratingStars.forEach(star => {
-        star.addEventListener('click', function () {
-            selectedRating = this.value;
+        ratingStars.forEach((star, index) => {
+            const correspondingLabel = rating.querySelector(`label[for="${star.id}"]`);
+
+    star.addEventListener('click', function(e) {
+                if (correspondingLabel.classList.contains('active') && index === 0) {
+        e.preventDefault(); // Impedisce la deselezione della prima stella
+                } else {
+        // Seleziona solo la stella cliccata, deselezionando le altre
+        ratingStars.forEach((s, i) => {
+            s.checked = false;
+            allLabels[i].classList.remove('active');
         });
-        });
 
-    publishButton.addEventListener('click', function() {
-        ratingValueField.value = selectedRating;
+    // Reseleziona la stella cliccata
+    star.checked = true;
+    correspondingLabel.classList.add('active');
+                }
+            });
         });
     });
+});
+
 </script>

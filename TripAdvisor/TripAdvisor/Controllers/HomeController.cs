@@ -47,16 +47,16 @@ namespace TripAdvisor.Controllers
         }
         public IActionResult Register()
         {
-            return View(new registrationUser());
+            return View(new RegistrationUser());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(registrationUser user)
+        public async Task<IActionResult> Register(RegistrationUser user)
         {
             var config = new FirebaseAuthConfig
             {
-                ApiKey = "AIzaSyDnv6FN72wQU7c-Zhe32dzhYwuXII9COtk",
-                AuthDomain = "tripadvisor-96ea6.firebaseapp.com",
+                ApiKey = _configuration.GetSection("Firebase")["apikey"],
+                AuthDomain = _configuration.GetSection("Firebase")["authdomain"],
                 Providers = new FirebaseAuthProvider[]
                 {
                     new GoogleProvider().AddScopes("email"),
@@ -73,7 +73,7 @@ namespace TripAdvisor.Controllers
                 if(email.Length > 0 && password.Length > 0) //Controlli vari su email e password
                 {
                     UserCredential userCredential = await client.CreateUserWithEmailAndPasswordAsync(email, password);
-                    dataManager.InsertUser(new user {uid = userCredential.User.Uid, classid = user.classid, name = user.name});
+                    dataManager.InsertUser(new Models.User { uid = userCredential.User.Uid, classid = user.classid, name = user.name});
                     return RedirectToAction("Login");
                 }
                 else
@@ -99,8 +99,8 @@ namespace TripAdvisor.Controllers
         {
             var config = new FirebaseAuthConfig
             {
-                ApiKey = "AIzaSyDnv6FN72wQU7c-Zhe32dzhYwuXII9COtk",
-                AuthDomain = "tripadvisor-96ea6.firebaseapp.com",
+                ApiKey = _configuration.GetSection("Firebase")["apikey"],
+                AuthDomain = _configuration.GetSection("Firebase")["authdomain"],
                 Providers = new FirebaseAuthProvider[]
                 {
                     new GoogleProvider().AddScopes("email"),

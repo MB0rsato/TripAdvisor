@@ -16,7 +16,18 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<Trip>("Select * from trips").ToList();
         }
-
+        public List<Class> GetClasses()
+        {
+            using var con = new MySqlConnection(s);
+            return con.Query<Class>("Select * from classes").ToList();
+        }
+        public User GetUser(string uid)
+        {
+            using var con = new MySqlConnection(s);
+            return con.Query<Models.User>("Select * from users" +
+                                    "Where uid = @uid",
+                                    new {uid = uid});
+        }
         public List<Comment> GetComments(Trip trip)
         {
             using var con = new MySqlConnection(s);
@@ -45,7 +56,7 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
-        public bool InsertUser(user user)
+        public bool InsertUser(User user)
         {
             using var con = new MySqlConnection(s);
             string query = @"Insert into users(uid,name,classid)

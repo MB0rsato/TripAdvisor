@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Prima parte del codice: gestione del rating e dell'espansione del riquadro
+    //Gestione del rating
     const allRatings = document.querySelectorAll('.rating');
     allRatings.forEach(rating => {
         const ratingStars = rating.querySelectorAll('input[type="radio"]');
@@ -31,23 +31,49 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    const expandableItems = document.querySelectorAll(".toggle-expandable");
-    expandableItems.forEach(item => {
-        item.addEventListener("click", function () {
-            const $commentsArea = item.querySelector(".comments-area");
+    const expandableElements = document.querySelectorAll(".expandable");
 
-            if ($commentsArea.classList.contains("d-none")) {
-                $commentsArea.classList.remove("d-none");
-                $commentsArea.classList.add("d-block");
-            } else {
-                $commentsArea.classList.remove("d-block");
-                $commentsArea.classList.add("d-none");
+    expandableElements.forEach(element => {
+        element.addEventListener("click", function () {
+            const expandableId = this.getAttribute("data-expandable-id");
+            const content = document.querySelector(`#expandable-content-${expandableId}`);
+
+            content.classList.toggle("d-none"); // Alterna la visibilità della parte espandibile
+        });
+    });
+
+    const addCommentButtons = document.querySelectorAll(".add-comment-btn");
+
+    addCommentButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Impedisce la chiusura della parte espandibile
+
+            const targetId = this.getAttribute("data-target");
+            const commentForm = document.querySelector(targetId);
+
+            if (commentForm.classList.contains("d-none")) {
+                commentForm.classList.remove("d-none"); // Mostra la textarea e il pulsante "Invia commento"
             }
         });
     });
-        // Gestione dell'evento di clic sul pulsante
-    const addNewItemButton = document.getElementById("add-new-item");
 
+    // Assicurati che il clic sulla textarea e sul pulsante non chiuda la parte espandibile
+    const textareas = document.querySelectorAll("textarea");
+    textareas.forEach(textarea => {
+        textarea.addEventListener("click", function (event) {
+            event.stopPropagation(); // Evita la chiusura del riquadro
+        });
+    });
+
+    const submitButtons = document.querySelectorAll(".btn-primary.mt-2");
+    submitButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Assicura che il clic sul pulsante non chiuda la parte espandibile
+        });
+    });
+
+    // Gestione dell'evento di clic sul pulsante
+    const addNewItemButton = document.getElementById("add-new-item");
     if (addNewItemButton) {
         addNewItemButton.addEventListener("click", function (e) {
             e.preventivo;
@@ -104,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 publishButton.addEventListener("click", function () {
                     // Logica per pubblicare il riquadro
                     console.log("Riquadro pubblicato");
-                    // Puoi implementare la logica per inviare i dati al server qui
+                    //Implementare la logica per inviare i dati
                 });
             }
         });

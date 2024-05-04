@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "REGISTER";
-    @model registrationUser;
-
+    @model RegistrationUser;
+    var classi = ViewData["class"] as List<Class>;
 }
 
 <div class="container">
@@ -21,9 +21,10 @@
         <div class="form-group row justify-content-center mx-auto">
             <select name="classid" class="form-control mb-2 search-input" id="classid" required>
                 <option value="\" disabled selected>Scegli la classe</option>
-                <option value="Class A">Class A</option>
-                <option value="Class B">Class B</option>
-                <option value="Class C">Class C</option>
+                @foreach (var cls in classi)
+                {
+                    <option value ="@cls.classid">@cls.ToString()</option>
+                }
             </select>
         </div>
         <div class="form-group row justify-content-center mx-auto">

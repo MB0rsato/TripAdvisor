@@ -14,11 +14,12 @@
         </div>
     </div>
 
-    <div class="row justify-content-center mt-4">
-        <div class="col-lg-10 col-md-12 col-sm-12 col-12 text-center">
+    <div class="row justify-content-center mt-4" id="content-area">
+        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+            <!-- Ciclo per creare 10 riquadri -->
             @for (int i = 0; i < 10; i++)
             {
-                <div class="custom-box p-3 mb-3">
+                <div class="custom-box p-3 mb-3 expandable" data-expandable-id="@i">
                     <div class="row align-items-center">
                         <div class="col-md-4 col-sm-6 text-center">
                             <img src="images/Albero.jpg" class="img-fluid" alt="Immagine" style="max-height: 200px;">
@@ -33,10 +34,10 @@
                                         <input type="radio" id="star4_@i" name="rating_@i" value="4" />
                                         <label for="star4_@i" title="4 stelle"></label>
                                         <input type="radio" id="star3_@i" name="rating_@i" value="3" />
-                                        <label for="star3_@i" title="3 stelle"></label>
+                                        <label for="star3_@i" title="3 stelle"></label
                                         <input type="radio" id="star2_@i" name="rating_@i" value="2" />
                                         <label for="star2_@i" title="2 stelle"></label>
-                                        <input tipo="radio" id="star1_@i" name="rating_@i" value="1" />
+                                        <input type="radio" id="star1_@i" name="rating_@i" value="1" />
                                         <label for="star1_@i" title="1 stella"></label>
                                     </div>
                                     <p>$50 a persona</p>
@@ -45,11 +46,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row comments-area d-none" id="expandable-content-@i">
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+                            <h3>Commenti:</h3>
+                            <button class="btn btn-secondario add-comment-btn" data-target="#comment-form-@i">Aggiungi commento</button>
+                        </div>
+                        <div class="col-12 comments-list">
+                            <p>Questo è un commento.</p>
+                            <p>Un altro commento...</p>
+                        </div>
+                        <div class="col-12 add-comment-form d-none" id="comment-form-@i">
+                            <textarea class="form-control" rows="3" placeholder="Scrivi il tuo commento..." style="width: 100%;"></textarea> <!-- Utilizza width 100% -->
+                            <button class="btn btn-primary mt-2">Invia commento</button>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
     </div>
+
     <a class="btn btn-top-right" asp-controller="Home" asp-action="Login">LOGIN</a>
+
+    <div class="text-center mt-3">
+        <button class="btn btn-success" asp-controller="Home" asp-action="AddNewItem" id="add-new-item">Nuova uscita/gita</button>
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 

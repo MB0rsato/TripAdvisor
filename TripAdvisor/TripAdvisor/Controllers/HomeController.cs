@@ -47,6 +47,7 @@ namespace TripAdvisor.Controllers
         }
         public IActionResult Register()
         {
+            List<Class> listaClassi = dataManager.GetClasses();
             return View(new RegistrationUser());
         }
 

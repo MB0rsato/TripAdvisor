@@ -116,6 +116,7 @@ namespace TripAdvisor.Controllers
             try
             {
                 userCredential = await client.SignInWithEmailAndPasswordAsync(email, password);
+                _session.SetString("UID", userCredential.User.Uid);
             }
             catch(Exception ex)
             {
@@ -125,13 +126,8 @@ namespace TripAdvisor.Controllers
             {
                 var s = client.User;
                 _session.SetString("utente", "admin");
-                return RedirectToAction("Index");
             }
-            else
-            {
-                ViewData["errore"] = "Credenziali errate!";
-                return View(new System.Net.NetworkCredential());
-            }
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

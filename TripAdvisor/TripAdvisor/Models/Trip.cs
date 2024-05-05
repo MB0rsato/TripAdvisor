@@ -3,7 +3,7 @@
     public class Trip
     {
         public int id { get; set; }
-        public DateOnly date { get; set; }
+        public DateTime date { get; set; }
         public string location { get; set; }
         public string classes { get; set; }
         public int duration { get; set; }

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   PRIMARY KEY (`classid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.classes: ~6 rows (circa)
+-- Dump dei dati della tabella tripadvisor.classes: ~4 rows (circa)
 DELETE FROM `classes`;
 INSERT INTO `classes` (`classid`, `specialization`) VALUES
 	('1AI', 'Informatica'),
@@ -45,18 +45,18 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `text` varchar(200) DEFAULT NULL,
   `state` varchar(200) DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,
-  `author` varchar(200) DEFAULT NULL,
+  `authorid` varchar(200) DEFAULT NULL,
   `deleted` char(1) DEFAULT NULL,
   `idTrip` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_comments_trips` (`idTrip`),
-  CONSTRAINT `FK_comments_trips` FOREIGN KEY (`idTrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `FK_comments_users` (`authorid`),
+  CONSTRAINT `FK_comments_trips` FOREIGN KEY (`idTrip`) REFERENCES `trips` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_comments_users` FOREIGN KEY (`authorid`) REFERENCES `users` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dump dei dati della tabella tripadvisor.comments: ~0 rows (circa)
 DELETE FROM `comments`;
-INSERT INTO `comments` (`id`, `text`, `state`, `rating`, `author`, `deleted`, `idTrip`) VALUES
-	(2, 'Bella gita', 'Approved', 4, 'Giovanni', 'N', 1);
 
 -- Dump della struttura di tabella tripadvisor.partecipations
 DROP TABLE IF EXISTS `partecipations`;
@@ -88,12 +88,14 @@ CREATE TABLE IF NOT EXISTS `trips` (
   `description` varchar(200) DEFAULT NULL,
   `averageRating` int(11) DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.trips: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.trips: ~3 rows (circa)
 DELETE FROM `trips`;
 INSERT INTO `trips` (`id`, `date`, `location`, `duration`, `type`, `price`, `picture`, `description`, `averageRating`) VALUES
-	(1, '2024-04-12', 'Steelco', 5, 'Uscita aziendale', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 0);
+	(1, '2024-04-12', 'Steelco', 5, 'Uscita aziendale', 10, NULL, 'Uscita aziendale presso Steelco a Riese', 3),
+	(2, '2024-05-05', 'Test', 3, 'Uscita Sportiva', 20, NULL, 'Ciao', 0),
+	(3, '2024-05-02', 'Test2', 1, 'Uscita Culturale', 10, NULL, 'CAIOOOO', 0);
 
 -- Dump della struttura di tabella tripadvisor.users
 DROP TABLE IF EXISTS `users`;
@@ -106,10 +108,30 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_classes` FOREIGN KEY (`classid`) REFERENCES `classes` (`classid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dump dei dati della tabella tripadvisor.users: ~0 rows (circa)
+-- Dump dei dati della tabella tripadvisor.users: ~3 rows (circa)
 DELETE FROM `users`;
 INSERT INTO `users` (`uid`, `name`, `classid`) VALUES
+	('axLxI2rDazekCgkQlTUHWiZoU563', 'Aldo Baglio', '1AI'),
+	('Hgdp5n6dVZPEpjej6axi6ZspEFG2', 'Aldo', '1AI'),
 	('wifjf1bdN7ftrTM5aOPc8EDzOhR2', 'Thomas Garbui', '3BI');
+
+-- Dump della struttura di trigger tripadvisor.AvgRating
+DROP TRIGGER IF EXISTS `AvgRating`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `AvgRating` AFTER INSERT ON `comments` FOR EACH ROW BEGIN
+
+update trips
+inner join (
+  SELECT comments.idtrip AS id, avg(comments.rating) AS averageRating
+  from comments
+  group BY comments.idtrip
+) as p on p.id = trips.id
+set trips.averageRating = p.averageRating;
+
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

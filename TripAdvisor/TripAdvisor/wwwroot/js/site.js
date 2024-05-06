@@ -88,21 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="d-flex flex-column align-items-start">
                                 <input tipo="text" class="form-control" placeholder="Titolo" /> <!-- Input titolo -->
                                 <input tipo="text" class="form-control mt-2" placeholder="Prezzo ($)" /> <!-- Input prezzo -->
-                                <input tipo="date" class="form-control mt-2" placeholder="Data" /> <!-- Input data -->
-                                <div class="info">
-                                    <div class="rating">
-                                        <input type="radio" id="star5_@i" name="rating_@i" value="5" />
-                                        <label for="star5_@i" title="5 stelle"></label>
-                                        <input type="radio" id="star4_@i" name="rating_@i" value="4" />
-                                        <label for="star4_@i" title="4 stelle"></label>
-                                        <input type="radio" id="star3_@i" name="rating_@i" value="3" />
-                                        <label for="star3_@i" title="3 stelle"></label>
-                                        <input type="radio" id="star2_@i" name="rating_@i" value="2" />
-                                        <label for="star2_@i" title="2 stelle"></label>
-                                        <input tipo="radio" id="star1_@i" name="rating_@i" value="1" />
-                                        <label for="star1_@i" title="1 stella"></label>
-                                    </div>
-                                </div>
+                                <input tipo="date" class="form-control mt-2" placeholder="Data" />
                             </div>
                         </div>
                     </div>

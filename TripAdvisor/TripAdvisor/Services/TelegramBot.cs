@@ -29,13 +29,7 @@ namespace TripAdvisor.Services
             Uri uri = new Uri(boturl + apikey +"/sendMessage?chat_id="+chatid+"&text=" + message);
             var response = await cliente.GetAsync(uri);
         }
-        public async void NewUser(RegistrationUser user)
-        {
-            HttpClient cliente = new HttpClient();
-            string message = "Nuovo Utente registrato!" + " Nome:" + user.name + " Classe:" + user.classid;
-            Uri uri = new Uri(boturl + apikey + "/sendMessage?chat_id=" + chatid + "&text=" + message);
-            var response = await cliente.GetAsync(uri);
-        }
+        
 
     }
 }

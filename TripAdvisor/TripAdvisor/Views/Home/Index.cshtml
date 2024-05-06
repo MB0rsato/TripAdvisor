@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-8 col-sm-6">
                                 <div class="d-flex flex-column align-items-start">
-                                    <h2>@trip.description</h2>
+                                    <h2>@(trip.type + " presso " + trip.location)</h2>
                                     <div class="info">
                                         <div class="rating">
                                             @for (int j = 5; j >= 1; j--)

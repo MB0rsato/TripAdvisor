@@ -12,19 +12,13 @@
             <h1 class="display-4 mt-5">DETTAGLIO USCITA</h1>
         </div>
     </div>
-
-    <!-- Dettagli del trip -->
     <div class="row justify-content-center mt-4">
         <div class="col-md-8 col-sm-10">
             <div class="custom-box p-3 mb-3">
-                <!-- dettagli del trip -->
                 <div class="row">
-                    <!-- Immagine -->
                     <div class="col-md-4 col-sm-6 text-center">
                         <img src="@trip.picture" class="img-fluid" alt="Trip picture" style="max-height: 200px;">
                     </div>
-
-                    <!-- Descrizione e valutazione -->
                     <div class="col-md-8 col-sm-6">
                         <div class="d-flex flex-column align-items-start">
                             <h2>@trip.description</h2>
@@ -40,8 +34,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Informazioni sul trip -->
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <p>Data: @trip.date.ToString("dd MMMM yyyy")</p>
@@ -72,9 +64,7 @@
             {
                 foreach (var comment in comments)
                 {
-                    <!-- Riquadro del commento -->
                     <div class="border p-3 mb-3 d-flex flex-column">
-                        <!-- Stelle sopra il nome dell'autore -->
                         <div class="rating mb-2 text-center">
                             @for (int star = 5; star >= 1; star--)
                             {
@@ -83,16 +73,10 @@
                                 <label for="star@star_@comment.id" title="@star stelle"></label>
                             }
                         </div>
-
-                        <!-- Nome dell'autore -->
                         <p><strong>@manager.GetUser(comment.authorid).name:</strong></p>
-
-                        <!-- Testo del commento -->
                         <p>@comment.text</p>
-
                         <div class="mt-auto">
                             <div class="d-flex justify-content-start">
-                                <!-- Verifica se il commento è pending o approved -->
                                 @if (comment.state == "pending")
                                 {
                                     <!-- Mostra pulsanti "Accetta" e "Rifiuta" -->

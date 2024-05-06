@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     List<Trip> trips = ViewData["trips"] as List<Trip>;
+    List<Comment> comments = ViewData["comments"] as List<Comment>;
 }
 
 <div class="container">
@@ -27,7 +28,7 @@
                         </div>
                         <div class="col-md-8 col-sm-6">
                             <div class="d-flex flex-column align-items-start">
-                                <h2>Titolo dell'elemento</h2>
+                                <h2>@(trips.FirstOrDefault().type + " presso " + trips.FirstOrDefault().location)</h2>
                                 <div class="info">
                                     <div class="rating">
                                         <input type="radio" id="star5_@i" name="rating_@i" value="5" />

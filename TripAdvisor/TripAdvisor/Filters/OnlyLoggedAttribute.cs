@@ -5,7 +5,7 @@ using TripAdvisor.Controllers;
 
 namespace TripAdvisor.Filters
 {
-    public class OnlySameClassAttribute : ActionFilterAttribute
+    public class OnlyLoggedAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

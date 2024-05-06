@@ -8,7 +8,7 @@ namespace TripAdvisor.Filters
         {
             ISession session = context.HttpContext.Session;
             string utente = session.GetString("utente");
-            if(utente == "admin")
+            if(utente != null)
             {
                 return;
             }

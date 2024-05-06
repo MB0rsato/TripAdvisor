@@ -30,7 +30,15 @@ namespace TripAdvisor.Controllers
 
         public IActionResult Index()
         {
-            ViewData["trips"] = dataManager.GetTrips();
+            if(_session.GetString("utente") == "admin")
+            {
+                ViewData["trips"] = dataManager.GetAllTrips();
+            }
+            else
+            {
+                ViewData["trips"] = dataManager.GetTrips();
+            }
+
             return View();
         }
         public IActionResult TripDetails(int id)
@@ -44,6 +52,7 @@ namespace TripAdvisor.Controllers
         public IActionResult InsertComment(Comment comment)
         {
             dataManager.InsertComment(comment);
+            bot.NewComment(comment);
             return View("Index");
         }
         [HttpPost]
@@ -55,16 +64,19 @@ namespace TripAdvisor.Controllers
         [HttpPost]
         public IActionResult ApproveComment(int id)
         {
+            dataManager.UpdateStateComment(id, "approved");
             return View("Index");
         }
         [HttpPost]
         public IActionResult RefuseComment(int id)
         {
+            dataManager.UpdateStateComment(id, "refused");
             return View("Index");
         }
         [HttpPost]
         public IActionResult DeleteComment(int id)
         {
+            dataManager.DeleteComment(id);
             return View("Index");
         }
 

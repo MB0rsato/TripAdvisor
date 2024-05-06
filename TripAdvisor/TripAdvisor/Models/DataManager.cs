@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using Firebase.Auth;
 using MySql.Data.MySqlClient;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TripAdvisor.Models
 {
@@ -15,6 +17,13 @@ namespace TripAdvisor.Models
         {
             using var con = new MySqlConnection(s);
             return con.Query<Trip>("Select * from trips").ToList();
+        }
+        public List<Trip> GetAllTrips()
+        {
+            using var con = new MySqlConnection(s);
+            return con.Query<Trip>("Select * from trips " +
+                                    "Where state = 'pending' " +
+                                    "AND deleted = 'N'").ToList();
         }
         public Trip GetTrip(int id)
         {
@@ -103,6 +112,54 @@ namespace TripAdvisor.Models
                 esito = false;
             }
             return esito;
+        }
+
+        public bool UpdateStateComment(int id,string state)
+        {
+            using var con = new MySqlConnection(s);
+            string query = @"Update comments 
+                            set state = @state 
+                            where id = @ id";
+            var param = new { state = state, id = id};
+            bool esito;
+            try
+            {
+                con.Execute(query, param);
+                esito = true;
+            }
+            catch (Exception e)
+            {
+                esito = false;
+            }
+            return esito;
+        }
+        public bool DeleteComment(int id)
+        {
+            using var con = new MySqlConnection(s);
+            string query = @"Update comments 
+                            set deleted = 'Y'
+                            where id = @ id";
+            var param = new {id = id };
+            bool esito;
+            try
+            {
+                con.Execute(query, param);
+                esito = true;
+            }
+            catch (Exception e)
+            {
+                esito = false;
+            }
+            return esito;
+        }
+        public void SaveImage(IFormFile file)
+        {
+            if (!System.IO.File.Exists("wwwroot/img/" + file.FileName))
+                {
+                    FileStream stream = System.IO.File.Create("wwwroot/img/" + file.FileName);
+                    file.CopyTo(stream);
+                }
+            }
         }
     }
 }

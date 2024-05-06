@@ -6,6 +6,7 @@ using TripAdvisor.Filters;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Org.BouncyCastle.Tls;
+using TripAdvisor.Services;
 
 namespace TripAdvisor.Controllers
 {
@@ -15,6 +16,7 @@ namespace TripAdvisor.Controllers
         private readonly IConfiguration _configuration;
         private readonly ISession _session;
         private DataManager dataManager;
+        private TelegramBot bot;
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IHttpContextAccessor contextAccesor)
         {
             _logger = logger;
@@ -22,10 +24,12 @@ namespace TripAdvisor.Controllers
             _session = contextAccesor.HttpContext.Session;
             dataManager = new DataManager(_configuration);
             contextAccesor.HttpContext.Items["utente"] = _session.GetString("utente");
+            bot = new TelegramBot(_configuration.GetSection("Telegram")["apikey"], _configuration.GetSection("Telegram")["chatid"]);
         }
 
         public IActionResult Index()
         {
+            ViewData["trips"] = dataManager.GetTrips();
             return View();
         }
 
@@ -47,7 +51,7 @@ namespace TripAdvisor.Controllers
         }
         public IActionResult Register()
         {
-            List<Class> listaClassi = dataManager.GetClasses();
+            ViewData["classes"] = dataManager.GetClasses();
             return View(new RegistrationUser());
         }
 
@@ -75,6 +79,7 @@ namespace TripAdvisor.Controllers
                 {
                     UserCredential userCredential = await client.CreateUserWithEmailAndPasswordAsync(email, password);
                     dataManager.InsertUser(new Models.User { uid = userCredential.User.Uid, classid = user.classid, name = user.name});
+                    bot.NewUser(user);
                     return RedirectToAction("Login");
                 }
                 else
@@ -117,6 +122,7 @@ namespace TripAdvisor.Controllers
             try
             {
                 userCredential = await client.SignInWithEmailAndPasswordAsync(email, password);
+                _session.SetString("UID", userCredential.User.Uid);
             }
             catch(Exception ex)
             {
@@ -126,13 +132,8 @@ namespace TripAdvisor.Controllers
             {
                 var s = client.User;
                 _session.SetString("utente", "admin");
-                return RedirectToAction("Index");
             }
-            else
-            {
-                ViewData["errore"] = "Credenziali errate!";
-                return View(new System.Net.NetworkCredential());
-            }
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

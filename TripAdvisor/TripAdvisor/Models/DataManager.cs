@@ -43,12 +43,12 @@ namespace TripAdvisor.Models
         public List<Comment> GetComments(int id)
         {
             using var con = new MySqlConnection(s);
-            return con.Query<Comment>("Select * from comments" +
-                                        " where idtrip = @id " +
-                                        "AND state = 'approved' " +
-                                        "AND deleted = 'N'",
-                                        new { id = id }
-                                        ).ToList();
+            return con.Query<Comment>("SELECT * FROM comments " +
+                                      "WHERE idtrip = @id " +
+                                      "AND state = 'approved' " +
+                                      "AND deleted = 'N'",
+                                      new { id = id }
+                                     ).ToList();
         }
         public bool InsertComment(Comment comment)
         {

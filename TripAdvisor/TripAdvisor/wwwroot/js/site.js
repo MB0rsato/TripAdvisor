@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             star.addEventListener('click', function (e) {
                 if (correspondingLabel.classList.contains('active') && index === 0) {
-                    e.preventivo(); // Impedisce la deselezione della prima stella
+                    e.preventDefault(); // Impedisce la deselezione della prima stella
                 } else {
                     // Deseleziona tutte le stelle
                     ratingStars.forEach((s, i) => {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const addNewItemButton = document.getElementById("add-new-item");
     if (addNewItemButton) {
         addNewItemButton.addEventListener("click", function (e) {
-            e.preventivo;
+            e.preventDefault;
             // Struttura del nuovo riquadro
             const newBox = `
                 <div class="custom-box p-3 mb-3 toggle-expandable">
@@ -128,9 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (publishButton) {
                 publishButton.addEventListener("click", function () {
-                    // Logica per pubblicare il riquadro
-                    console.log("Riquadro pubblicato");
-                    //Implementare la logica per inviare i dati
+                    console.log("Riquadro pubblicato"); // Test per verificare che l'evento funzioni
                 });
             }
         });

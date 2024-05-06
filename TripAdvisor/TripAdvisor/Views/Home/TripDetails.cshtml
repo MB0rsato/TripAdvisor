@@ -3,6 +3,7 @@
     DataManager manager = ViewData["manager"] as DataManager;
     Trip trip = ViewData["selectedTrip"] as Trip; 
     List<Comment> comments = ViewData["comments"] as List<Comment>;
+    var utente = Context.Session.GetString("utente");
 }
 
 <div class="container">
@@ -78,8 +79,7 @@
                             @for (int star = 5; star >= 1; star--)
                             {
                                 bool isChecked = (star == comment.rating);
-                                <input type="radio" id="star@star_@comment.id" name="rating_@comment.id" value="@star"
-                           @(isChecked ? "checked" : "") disabled />
+                                <input type="radio" id="star@star_@comment.id" name="rating_@comment.id" value="@star"/>
                                 <label for="star@star_@comment.id" title="@star stelle"></label>
                             }
                         </div>
@@ -90,16 +90,20 @@
                         <!-- Testo del commento -->
                         <p>@comment.text</p>
 
-                        <!-- Pulsanti in basso a sinistra -->
                         <div class="mt-auto">
-                            <!-- 'mt-auto' per spingere i pulsanti in basso -->
                             <div class="d-flex justify-content-start">
-                                <!-- Allineamento a sinistra -->
-                                <!-- Pulsante per accettare il commento -->
-                                <button class="btn btn-success mr-2" onclick="AcceptComment(@comment.id)">Accetta</button>
-
-                                <!-- Pulsante per eliminare il commento -->
-                                <button class="btn btn-danger" onclick="DeleteComment(@comment.id)">Elimina</button>
+                                <!-- Verifica se il commento è pending o approved -->
+                                @if (comment.state == "pending")
+                                {
+                                    <!-- Mostra pulsanti "Accetta" e "Rifiuta" -->
+                                    <button class="btn btn-success mr-2" onclick="location.href='@Url.Action("ApproveComment", "YourControllerName", new { id = comment.id })'">Accetta</button>
+                                    <button class="btn btn-danger" onclick="location.href='@Url.Action("RefuseComment", "YourControllerName", new { id = comment.id })'">Rifiuta</button>
+                                }
+                                else if (comment.state == "approved")
+                                {
+                                    <!-- Mostra solo il pulsante "Elimina" -->
+                                    <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteComment", "YourControllerName", new { id = comment.id })'">Elimina</button>
+                                }
                             </div>
                         </div>
                     </div>
@@ -109,6 +113,7 @@
             {
                 <p>Nessun commento disponibile.</p>
             }
+            </div>
         </div>
     </div>
 </div>

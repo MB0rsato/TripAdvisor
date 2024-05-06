@@ -56,9 +56,9 @@ namespace TripAdvisor.Controllers
             return View("Index");
         }
         [HttpPost]
-        public IActionResult InsertTrip(Trip trip)
+        public IActionResult InsertTrip(Trip trip,IFormFile file)
         {
-            dataManager.InsertTrip(trip);
+            dataManager.InsertTrip(trip,file);
             return View("Index");
         }
         [HttpPost]

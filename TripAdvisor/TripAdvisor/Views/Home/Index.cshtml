@@ -53,7 +53,8 @@
                                     <!-- Aggiungi Commento -->
                                     <button class="btn btn-secondario add-comment-btn" data-target="#comment-form-@trip.id">Aggiungi commento</button>
                                     <!-- Pulsante Dettaglio -->
-                                    <a class="btn btn-info" asp-controller="Home" asp-action="TripDetails" id=@trip.id>DETTAGLIO</a>
+                                    <a class="btn btn-info" asp-controller="Home"
+                                        asp-action="TripDetails" asp-route-id="@trip.id">Dettaglio</a>
                                 </div>
                             </div>
                             <div class="col-12 comments-list">

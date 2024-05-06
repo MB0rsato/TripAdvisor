@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
+    Trip trip = ViewData["selectedTrip"] as Trip; 
 }
 
 <div class="container">
@@ -8,4 +9,44 @@
             <h1 class="display-4 mt-5">DETTAGLIO USCITA</h1>
         </div>
     </div>
+
+    <!-- Riquadro con dettagli del trip -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-sm-10">
+            <!-- Dimensioni variabili per dispositivi diversi -->
+            <div class="custom-box p-3 mb-3">
+                <!-- Box con margine e padding -->
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 text-center">
+                        
+                        <img src="@trip.picture" class="img-fluid" alt="@trip.picture" style="max-height: 200px;">
+                    </div>
+                    <div class="col-md-8 col-sm-6">
+                        <!-- Dettagli del trip -->
+                        <div class="d-flex flex-column align-items-start">
+                            <h2>@trip.description</h2>
+                            <div class="info">
+                                <div class="rating">
+                                    
+                                    @for (int j = 5; j >= 1; j--)
+                                    {
+                                        bool isChecked = (j == trip.averageRating); 
+                                        <input type="radio" id="star@j_@trip.id" name="rating_@trip.id" value="@j"
+                                           @(isChecked ? "checked" : "") disabled /> 
+                                        <label for="star@j_@trip.id" title="@j stelle"></label>
+                                    }
+                                </div>
+                                <p>Data: @trip.date.ToString("dd MMMM yyyy")</p> 
+                                <p>Location: @trip.location</p> 
+                                <p>Durata: @trip.duration giorni</p> 
+                                <p>Tipo: @trip.type</p> 
+                                <p>Prezzo: @trip.price</p> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

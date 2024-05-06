@@ -32,7 +32,7 @@ namespace TripAdvisor.Services
         public async void NewComment(Comment comment)
         {
             HttpClient cliente = new HttpClient();
-            string message = "Nuovo Commento Inserito!" + " Autore:" + comment.author + " Testo:" + comment.text;
+            string message = "Nuovo Commento Inserito!" + " Autore:" + comment.authorid + " Testo:" + comment.text;
             Uri uri = new Uri(boturl + apikey + "/sendMessage?chat_id=" + chatid + "&text=" + message);
             var response = await cliente.GetAsync(uri);
         }

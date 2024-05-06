@@ -74,6 +74,13 @@
                 foreach (var comment in comments)
                 {
                     <div class="border p-3 mb-3">
+                            <div class="rating mb-2">
+                                @for (int star = 5; star >= 1; star--)
+                                {
+                                    <input type="radio" id="star@star_@comment.id" name="rating_@comment.id" value="@star" />
+                                    <label for="star@star_@comment.id" title="@star stelle"></label>
+                                }
+                            </div>
                         <p><strong>@comment.author:</strong> @comment.text</p>
                     </div>
                 }

@@ -7,6 +7,7 @@ using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Org.BouncyCastle.Tls;
 using TripAdvisor.Services;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TripAdvisor.Controllers
 {
@@ -30,24 +31,13 @@ namespace TripAdvisor.Controllers
         public IActionResult Index()
         {
             ViewData["trips"] = dataManager.GetTrips();
+            ViewData["comments"] = dataManager.GetComments();
             return View();
         }
 
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        [OnlyAdmin]
-        public async Task<IActionResult> ProvaTelegram()
-        {
-            HttpClient cliente = new HttpClient();
-            string apikey = "7137023147:AAGza7NQA0T9PkO3kEUnFoyI9JjJNzv-vys";
-            string chatid = "-4173595237";
-            Uri uri = new Uri("https://api.telegram.org/bot7137023147:AAGza7NQA0T9PkO3kEUnFoyI9JjJNzv-vys/sendMessage?chat_id=-4173595237&text=TEST");
-            var response = await cliente.GetAsync(uri);
-            ViewData["esito"] = "Successo = " + response;
-            return View("index");
         }
         public IActionResult Register()
         {

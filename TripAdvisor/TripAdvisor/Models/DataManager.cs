@@ -16,6 +16,13 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<Trip>("Select * from trips").ToList();
         }
+        public Trip GetTrip(int id)
+        {
+            using var con = new MySqlConnection(s);
+            return con.Query<Trip>("Select * from trips" +
+                                    "Where id = @id",
+                                    new{id = id});
+        }
         public List<Class> GetClasses()
         {
             using var con = new MySqlConnection(s);

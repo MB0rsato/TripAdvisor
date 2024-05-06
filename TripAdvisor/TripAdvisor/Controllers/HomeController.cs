@@ -34,6 +34,11 @@ namespace TripAdvisor.Controllers
             ViewData["comments"] = dataManager.GetComments();
             return View();
         }
+        public IActionResult TripDetails(int id)
+        {
+            ViewData["selectedTrip"] = dataManager.GetTrip(id);
+            return View();
+        }
 
         public IActionResult Privacy()
         {

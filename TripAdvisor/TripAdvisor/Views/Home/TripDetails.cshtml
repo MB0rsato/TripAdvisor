@@ -1,5 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
+    DataManager manager = ViewData["manager"] as DataManager;
+    Trip trip = ViewData["selectedTrip"] as Trip; 
+    List<Comment> comments = ViewData["comments"] as List<Comment>;
 }
 
 <div class="container">
@@ -8,4 +11,79 @@
             <h1 class="display-4 mt-5">DETTAGLIO USCITA</h1>
         </div>
     </div>
+
+    <!-- Riquadro con dettagli del trip -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-sm-10">
+            <!-- Box with margin and padding -->
+            <div class="custom-box p-3 mb-3">
+                <div class="row">
+                    <!-- Image and details column -->
+                    <div class="col-md-4 col-sm-6 text-center">
+                        <img src="@trip.picture" class="img-fluid" alt="Trip picture" style="max-height: 200px;">
+                    </div>
+
+                    <!-- Trip description and star rating column -->
+                    <div class="col-md-8 col-sm-6">
+                        <div class="d-flex flex-column align-items-start">
+                            <h2>@trip.description</h2>
+                            <div class="rating">
+                                @for (int star = 5; star >= 1; star--)
+                                {
+                                    bool isChecked = (star == trip.averageRating);
+                                    <input type="radio" id="star@star_@trip.id" name="rating_@trip.id" value="@star"
+                                       @(isChecked ? "checked" : "") disabled />
+                                    <label for="star@star_@trip.id" title="@star stelle"></label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trip information split into two per row -->
+                <div class="row mt-4">
+                    <!-- First row of trip details -->
+                    <div class="col-md-6">
+                        <p>Data: @trip.date.ToString("dd MMMM yyyy")</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Location: @trip.location</p>
+                    </div>
+
+                    <!-- Second row of trip details -->
+                    <div class="col-md-6">
+                        <p>Durata: @trip.duration giorni</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Tipo: @trip.type</p>
+                    </div>
+
+                    <!-- Third row of trip details -->
+                    <div class="col-md-6">
+                        <p>Prezzo: @trip.price</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-sm-10">
+            <h3>Commenti</h3>
+            @if (comments != null && comments.Count > 0)
+            {
+                foreach (var comment in comments)
+                {
+                    <div class="border p-3 mb-3">
+                        <p><strong>@manager.GetUser:</strong> @comment.text</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Nessun commento disponibile.</p>
+            }
+        </div>
+    </div>
 </div>
+
+

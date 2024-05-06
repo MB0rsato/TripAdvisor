@@ -19,9 +19,9 @@ namespace TripAdvisor.Models
         public Trip GetTrip(int id)
         {
             using var con = new MySqlConnection(s);
-            return con.Query<Trip>("Select * from trips" +
+            return (Trip)con.Query<Trip>("Select * from trips " +
                                     "Where id = @id",
-                                    new{id = id});
+                                    new{id = ""+id}).FirstOrDefault();
         }
         public List<Class> GetClasses()
         {
@@ -40,14 +40,14 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<Comment>("Select * from comments").ToList();
         }
-        public List<Comment> GetComments(Trip trip)
+        public List<Comment> GetComments(int id)
         {
             using var con = new MySqlConnection(s);
             return con.Query<Comment>("Select * from comments" +
-                                        " where idtrip = @id" +
-                                        "AND state = approved" +
+                                        " where idtrip = @id " +
+                                        "AND state = 'approved' " +
                                         "AND deleted = 'N'",
-                                        new { id = trip.id }
+                                        new { id = id }
                                         ).ToList();
         }
         public bool InsertComment(Comment comment)

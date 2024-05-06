@@ -31,12 +31,13 @@ namespace TripAdvisor.Controllers
         public IActionResult Index()
         {
             ViewData["trips"] = dataManager.GetTrips();
-            ViewData["comments"] = dataManager.GetComments();
             return View();
         }
         public IActionResult TripDetails(int id)
         {
             ViewData["selectedTrip"] = dataManager.GetTrip(id);
+            ViewData["comments"] = dataManager.GetComments(id);
+            ViewData["manager"] = dataManager;
             return View();
         }
 

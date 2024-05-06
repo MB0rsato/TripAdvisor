@@ -40,11 +40,34 @@ namespace TripAdvisor.Controllers
             ViewData["manager"] = dataManager;
             return View();
         }
-
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult InsertComment(Comment comment)
         {
-            return View();
+            dataManager.InsertComment(comment);
+            return View("Index");
         }
+        [HttpPost]
+        public IActionResult InsertTrip(Trip trip)
+        {
+            dataManager.InsertTrip(trip);
+            return View("Index");
+        }
+        [HttpPost]
+        public IActionResult ApproveComment(int id)
+        {
+            return View("Index");
+        }
+        [HttpPost]
+        public IActionResult RefuseComment(int id)
+        {
+            return View("Index");
+        }
+        [HttpPost]
+        public IActionResult DeleteComment(int id)
+        {
+            return View("Index");
+        }
+
         public IActionResult Register()
         {
             ViewData["classes"] = dataManager.GetClasses();
@@ -119,17 +142,25 @@ namespace TripAdvisor.Controllers
             {
                 userCredential = await client.SignInWithEmailAndPasswordAsync(email, password);
                 _session.SetString("UID", userCredential.User.Uid);
+                if (userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["mb"]) || userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["ns"]))
+                {
+                    var s = client.User;
+                    _session.SetString("utente", "admin");
+                }
             }
             catch(Exception ex)
             {
 
             }
-            if (userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["mb"]) || userCredential.User.Uid.Equals(_configuration.GetSection("AdminUID")["ns"]))
+            if(userCredential != null)
             {
-                var s = client.User;
-                _session.SetString("utente", "admin");
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return View(new System.Net.NetworkCredential());
+            }
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

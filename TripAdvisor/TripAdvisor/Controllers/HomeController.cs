@@ -180,5 +180,22 @@ namespace TripAdvisor.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        public IActionResult UploadImage(IFormFile file, int tripId)
+        {
+            if (file != null && file.Length > 0)
+            {
+                SaveImage(file, tripId);
+                var trip = GetTripById(tripId);
+                if (trip != null)
+                {
+                    trip.Picture = $"{tripId}_{file.FileName}";
+                }
+                return Ok(new { Message = "Immagine caricata con successo" });
+            }
+            return BadRequest(new { Message = "Nessun file caricato" });
+        }
+
     }
 }

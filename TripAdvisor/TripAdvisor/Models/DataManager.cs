@@ -30,7 +30,7 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return (Trip)con.Query<Trip>("Select * from trips " +
                                     "Where id = @id",
-                                    new{id = ""+id}).FirstOrDefault();
+                                    new { id = "" + id }).FirstOrDefault();
         }
         public List<Class> GetClasses()
         {
@@ -42,7 +42,7 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<User>("Select * from users " +
                                     "Where uid = @uid",
-                                    new {uid = uid}).FirstOrDefault();
+                                    new { uid = uid }).FirstOrDefault();
         }
         public List<Comment> GetComments()
         {
@@ -64,7 +64,7 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             string query = @"Insert into Comments(text,state,rating,authorid,deleted,idTrip)
                             values(@date,@text,@state,@rating,@authorid,@deleted,@idTrip)";
-            var param = new { text = comment.text, state = "pending", rating = comment.rating, authorid = comment.authorid,deleted = "N",idTrip = comment.idTrip};
+            var param = new { text = comment.text, state = "pending", rating = comment.rating, authorid = comment.authorid, deleted = "N", idTrip = comment.idTrip };
             bool esito;
             try
             {
@@ -77,7 +77,7 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
-        public bool InsertTrip(Trip trip,IFormFile file)
+        public bool InsertTrip(Trip trip, IFormFile file)
         {
             SaveImage(file);
             using var con = new MySqlConnection(s);
@@ -115,13 +115,13 @@ namespace TripAdvisor.Models
             return esito;
         }
 
-        public bool UpdateStateComment(int id,string state)
+        public bool UpdateStateComment(int id, string state)
         {
             using var con = new MySqlConnection(s);
             string query = @"Update comments 
                             set state = @state 
                             where id = @ id";
-            var param = new { state = state, id = id};
+            var param = new { state = state, id = id };
             bool esito;
             try
             {
@@ -140,7 +140,7 @@ namespace TripAdvisor.Models
             string query = @"Update comments 
                             set deleted = 'Y'
                             where id = @ id";
-            var param = new {id = id };
+            var param = new { id = id };
             bool esito;
             try
             {
@@ -153,11 +153,15 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
-        public void SaveImage(IFormFile file)
+        public void SaveImage(IFormFile file, int tripId)
         {
-            if (!System.IO.File.Exists("wwwroot/img/" + file.FileName))
+            string fileName = $"{tripId}_{file.FileName}";
+            string filePath = Path.Combine("wwwroot/images", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                using (FileStream stream = System.IO.File.Create(filePath))
                 {
-                    FileStream stream = System.IO.File.Create("wwwroot/img/" + file.FileName);
                     file.CopyTo(stream);
                 }
             }

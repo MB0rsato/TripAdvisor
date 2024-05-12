@@ -79,7 +79,7 @@ namespace TripAdvisor.Models
         }
         public bool InsertTrip(Trip trip, IFormFile file)
         {
-            SaveImage(file);
+            //SaveImage(file);
             using var con = new MySqlConnection(s);
             string query = @"Insert into Trip(date,location,duration,type,price,picture,description)
                             values(@date,@location,@duration,@type,@price,@picture,@description)";

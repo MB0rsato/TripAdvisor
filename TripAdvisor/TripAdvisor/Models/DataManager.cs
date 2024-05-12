@@ -18,19 +18,20 @@ namespace TripAdvisor.Models
             using var con = new MySqlConnection(s);
             return con.Query<Trip>("Select * from trips").ToList();
         }
-        public List<Trip> GetAllTrips()
+        public List<Comment> GetAllComments(int id)
         {
             using var con = new MySqlConnection(s);
-            return con.Query<Trip>("Select * from trips " +
-                                    "Where state = 'pending' " +
-                                    "AND deleted = 'N'").ToList();
+            return con.Query<Comment>("Select * from comments " +
+                                    "Where idtrip = @id " +
+                                    "AND deleted = 'N'",
+                                    new {id = id}).ToList();
         }
         public Trip GetTrip(int id)
         {
             using var con = new MySqlConnection(s);
             return (Trip)con.Query<Trip>("Select * from trips " +
                                     "Where id = @id",
-                                    new { id = "" + id }).FirstOrDefault();
+                                    new { id = id }).FirstOrDefault();
         }
         public List<Class> GetClasses()
         {
@@ -80,11 +81,7 @@ namespace TripAdvisor.Models
         
         public bool InsertTrip(Trip trip, int tripId ,IFormFile file)
         {
-<<<<<<< HEAD
-            //SaveImage(file);
-=======
             SaveImage(file, tripId);
->>>>>>> 90aee2fcd55d448200e120dd11f7a84ed515e15d
             using var con = new MySqlConnection(s);
             string query = @"Insert into Trip(date,location,duration,type,price,picture,description)
                     values(@date,@location,@duration,@type,@price,@picture,@description)";
@@ -124,9 +121,7 @@ namespace TripAdvisor.Models
         public bool UpdateStateComment(int id, string state)
         {
             using var con = new MySqlConnection(s);
-            string query = @"Update comments 
-                            set state = @state 
-                            where id = @ id";
+            string query = @"Update comments set state = @state where id = @id";
             var param = new { state = state, id = id };
             bool esito;
             try
@@ -143,9 +138,7 @@ namespace TripAdvisor.Models
         public bool DeleteComment(int id)
         {
             using var con = new MySqlConnection(s);
-            string query = @"Update comments 
-                            set deleted = 'Y'
-                            where id = @ id";
+            string query = @"Update comments set deleted = 'Y' where id = @id";
             var param = new { id = id };
             bool esito;
             try

@@ -32,21 +32,20 @@ namespace TripAdvisor.Controllers
 
         public IActionResult Index()
         {
-            if(_session.GetString("utente") == "admin")
-            {
-                ViewData["trips"] = dataManager.GetAllTrips();
-            }
-            else
-            {
-                ViewData["trips"] = dataManager.GetTrips();
-            }
-
+            ViewData["trips"] = dataManager.GetTrips();
             return View();
         }
         public IActionResult TripDetails(int id)
         {
             ViewData["selectedTrip"] = dataManager.GetTrip(id);
-            ViewData["comments"] = dataManager.GetComments(id);
+            if(_session.GetString("utente") == "admin")
+            {
+                ViewData["comments"] = dataManager.GetAllComments(id);
+            }
+            else
+            {
+                ViewData["comments"] = dataManager.GetComments(id);
+            }
             ViewData["manager"] = dataManager;
             return View();
         }
@@ -71,22 +70,22 @@ namespace TripAdvisor.Controllers
             return View("Index");
         }
         
-        [HttpPost]
         public IActionResult ApproveComment(int id)
         {
             dataManager.UpdateStateComment(id, "approved");
+            ViewData["trips"] = dataManager.GetTrips();
             return View("Index");
         }
-        [HttpPost]
         public IActionResult RefuseComment(int id)
         {
             dataManager.UpdateStateComment(id, "refused");
+            ViewData["trips"] = dataManager.GetTrips();
             return View("Index");
         }
-        [HttpPost]
         public IActionResult DeleteComment(int id)
         {
             dataManager.DeleteComment(id);
+            ViewData["trips"] = dataManager.GetTrips();
             return View("Index");
         }
 
@@ -190,25 +189,6 @@ namespace TripAdvisor.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-<<<<<<< HEAD
-
-        //[HttpPost]
-        //public IActionResult UploadImage(IFormFile file, int tripId)
-        //{
-        //    if (file != null && file.Length > 0)
-        //    {
-        //        SaveImage(file, tripId);
-        //        var trip = GetTripById(tripId);
-        //        if (trip != null)
-        //        {
-        //            trip.Picture = $"{tripId}_{file.FileName}";
-        //        }
-        //        return Ok(new { Message = "Immagine caricata con successo" });
-        //    }
-        //    return BadRequest(new { Message = "Nessun file caricato" });
-        //}
-
-=======
         
         [HttpPost]
         public IActionResult UploadImage(IFormFile file, int tripId)
@@ -225,6 +205,6 @@ namespace TripAdvisor.Controllers
             }
             return BadRequest(new { Message = "Nessun file caricato" });
         }
->>>>>>> 90aee2fcd55d448200e120dd11f7a84ed515e15d
+
     }
 }

@@ -17,7 +17,7 @@
             <div class="custom-box p-3 mb-3">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 text-center">
-                        <img src="@trip.picture" class="img-fluid" alt="Trip picture" style="max-height: 200px;">
+                        <img src="/images/@trip.picture" class="img-fluid" alt="Trip picture" style="max-height: 200px;">
                     </div>
                     <div class="col-md-8 col-sm-6">
                         <div class="d-flex flex-column align-items-start">
@@ -77,16 +77,19 @@
                         <p>@comment.text</p>
                         <div class="mt-auto">
                             <div class="d-flex justify-content-start">
-                                @if (comment.state == "pending")
+                                @if(utente == "admin")
+                                {
+                                    @if (comment.state == "pending")
                                 {
                                     <!-- Mostra pulsanti "Accetta" e "Rifiuta" -->
-                                    <button class="btn btn-success mr-2" onclick="location.href='@Url.Action("ApproveComment", "YourControllerName", new { id = comment.id })'">Accetta</button>
-                                    <button class="btn btn-danger" onclick="location.href='@Url.Action("RefuseComment", "YourControllerName", new { id = comment.id })'">Rifiuta</button>
+                                    <a class="btn btn-success mr-2" asp-controller="Home" asp-action="ApproveComment" asp-route-id="@comment.id">Accetta</a>
+                                        <a class="btn btn-danger asp-controller="Home" asp-action="RefuseComment" asp-route-id="@comment.id">Rifiuta</a>
                                 }
                                 else if (comment.state == "approved")
                                 {
                                     <!-- Mostra solo il pulsante "Elimina" -->
-                                    <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteComment", "YourControllerName", new { id = comment.id })'">Elimina</button>
+                                    <a class="btn btn-danger asp-controller="Home" asp-action="DeleteComment" asp-route-id="@comment.id">Elimina</a>
+                                }
                                 }
                             </div>
                         </div>

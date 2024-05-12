@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\images\\Albero.jpg"
     },
     {
+      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\Steelco.jpg",
+      "PackagePath": "staticwebassets\\images\\Steelco.jpg"
+    },
+    {
       "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

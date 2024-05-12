@@ -77,13 +77,14 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
-        public bool InsertTrip(Trip trip, IFormFile file)
+        
+        public bool InsertTrip(Trip trip, int tripId ,IFormFile file)
         {
-            SaveImage(file);
+            SaveImage(file, tripId);
             using var con = new MySqlConnection(s);
             string query = @"Insert into Trip(date,location,duration,type,price,picture,description)
-                            values(@date,@location,@duration,@type,@price,@picture,@description)";
-            var param = new { date = trip.date, location = trip.location, duration = trip.duration, type = trip.type, price = trip.price, picture = file.FileName, description = trip.description };
+                    values(@date,@location,@duration,@type,@price,@picture,@description)";
+            var param = new { date = trip.date, location = trip.location, duration = trip.duration, type = trip.type, price = trip.price, picture = $"{tripId}_{file.FileName}", description = trip.description };
             bool esito;
             try
             {
@@ -96,6 +97,7 @@ namespace TripAdvisor.Models
             }
             return esito;
         }
+
         public bool InsertUser(User user)
         {
             using var con = new MySqlConnection(s);

@@ -8,6 +8,8 @@ using Firebase.Auth.Providers;
 using Org.BouncyCastle.Tls;
 using TripAdvisor.Services;
 using static System.Net.Mime.MediaTypeNames;
+using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace TripAdvisor.Controllers
 {
@@ -55,12 +57,20 @@ namespace TripAdvisor.Controllers
             bot.NewComment(comment);
             return View("Index");
         }
+        
         [HttpPost]
         public IActionResult InsertTrip(Trip trip,IFormFile file)
         {
-            dataManager.InsertTrip(trip,file);
+            if (file != null && file.Length > 0)
+            {
+                dataManager.SaveImage(file, trip.id);
+                trip.picture = $"{trip.id}_{file.FileName}";
+                dataManager.InsertTrip(trip,trip.id,file);//Non sono sicuro di questo!!!
+                return RedirectToAction("Index");
+            }
             return View("Index");
         }
+        
         [HttpPost]
         public IActionResult ApproveComment(int id)
         {
@@ -180,22 +190,21 @@ namespace TripAdvisor.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        
         [HttpPost]
         public IActionResult UploadImage(IFormFile file, int tripId)
         {
             if (file != null && file.Length > 0)
             {
-                SaveImage(file, tripId);
-                var trip = GetTripById(tripId);
+                dataManager.SaveImage(file, tripId);
+                var trip = dataManager.GetTrip(tripId);
                 if (trip != null)
                 {
-                    trip.Picture = $"{tripId}_{file.FileName}";
+                    trip.picture = $"{tripId}_{file.FileName}";
                 }
                 return Ok(new { Message = "Immagine caricata con successo" });
             }
             return BadRequest(new { Message = "Nessun file caricato" });
         }
-
     }
 }

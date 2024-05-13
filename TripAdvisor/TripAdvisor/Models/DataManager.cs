@@ -63,8 +63,7 @@ namespace TripAdvisor.Models
         public bool InsertComment(Comment comment)
         {
             using var con = new MySqlConnection(s);
-            string query = @"Insert into Comments(text,state,rating,authorid,deleted,idTrip)
-                            values(@date,@text,@state,@rating,@authorid,@deleted,@idTrip)";
+            string query = @"Insert into Comments(text,state,rating,authorid,deleted,idTrip) values(@date,@text,@state,@rating,@authorid,@deleted,@idTrip)";
             var param = new { text = comment.text, state = "pending", rating = comment.rating, authorid = comment.authorid, deleted = "N", idTrip = comment.idTrip };
             bool esito;
             try

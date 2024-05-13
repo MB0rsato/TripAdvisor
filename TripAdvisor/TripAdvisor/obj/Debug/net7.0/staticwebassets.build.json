@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Bw2zzZjuYmBHt1arSrQ1iywRh+upVfx7ALTBBb3dxAs=",
+  "Hash": "2976H6NjnBcQcHNt8DbjYYvTIkIE/DU+opUB/jIlGMw=",
   "Source": "TripAdvisor",
   "BasePath": "_content/TripAdvisor",
   "Mode": "Default",
@@ -85,12 +85,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\Albero.jpg",
+      "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\1_Steelco.jpg",
       "SourceId": "TripAdvisor",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\",
       "BasePath": "_content/TripAdvisor",
-      "RelativePath": "images/Albero.jpg",
+      "RelativePath": "images/1_Steelco.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,15 +99,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Albero.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\1_Steelco.jpg"
     },
     {
-      "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\Steelco.jpg",
+      "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\2_Albero.jpg",
       "SourceId": "TripAdvisor",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\",
       "BasePath": "_content/TripAdvisor",
-      "RelativePath": "images/Steelco.jpg",
+      "RelativePath": "images/2_Albero.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,7 +116,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\Steelco.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\2_Albero.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\3_Albero.jpg",
+      "SourceId": "TripAdvisor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\",
+      "BasePath": "_content/TripAdvisor",
+      "RelativePath": "images/3_Albero.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\3_Albero.jpg"
     },
     {
       "Identity": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\js\\site.js",

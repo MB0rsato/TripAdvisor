@@ -13,12 +13,16 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\Albero.jpg",
-      "PackagePath": "staticwebassets\\images\\Albero.jpg"
+      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\1_Steelco.jpg",
+      "PackagePath": "staticwebassets\\images\\1_Steelco.jpg"
     },
     {
-      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\Steelco.jpg",
-      "PackagePath": "staticwebassets\\images\\Steelco.jpg"
+      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\2_Albero.jpg",
+      "PackagePath": "staticwebassets\\images\\2_Albero.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\images\\3_Albero.jpg",
+      "PackagePath": "staticwebassets\\images\\3_Albero.jpg"
     },
     {
       "Id": "C:\\Users\\Utente\\Documents\\GitHub\\TripAdvisor\\TripAdvisor\\TripAdvisor\\wwwroot\\js\\site.js",

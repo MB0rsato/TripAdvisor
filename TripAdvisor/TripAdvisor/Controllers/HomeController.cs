@@ -10,6 +10,7 @@ using TripAdvisor.Services;
 using static System.Net.Mime.MediaTypeNames;
 using MySql.Data.MySqlClient;
 using Dapper;
+using System.Xml.Linq;
 
 namespace TripAdvisor.Controllers
 {
@@ -33,6 +34,10 @@ namespace TripAdvisor.Controllers
         public IActionResult Index()
         {
             ViewData["trips"] = dataManager.GetTrips();
+            Comment c = new Comment() { authorid = "JN8SwNeBaFRGtEEVTlCUbyDRjzX2", text = "TESTORA", rating = 4, idTrip = 1 };
+            dataManager.InsertComment(c);
+            bot.NewComment(c);
+
             return View();
         }
         public IActionResult TripDetails(int id)
